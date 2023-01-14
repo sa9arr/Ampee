@@ -1,4 +1,10 @@
-{%extends 'det/reg.html' %}
-{%block content%}
+{% extends 'reg.html' %}
+{% block content %}
 <h4> Update Employee</h4>
-{%endblock content%}
+<br>
+<form action="" method="post">
+    {% csrf_token % }
+    {{form}}
+    <input type="submit" value="Update">
+</form>
+{% endblock content %}

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +9,52 @@
 </head>
 <body>
     <h1>This template works</h1>
-    <form action="" method="POST" novalidate>
-        {%csrf_token%}
-    {{form}}
-    <input type="submit" value="submit">
-</form>
+     <form action="" method="POST">
+        {% csrf_token %}
+       {{form}}
+        <input type="submit" value="submit">
+      </form>
+      <br> <br>
+      <h2> show employees Information</h2>
+      {% if show%}
+       <h4> table data</h4>
+       <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th> 
+            <th scope="col">Name</th> 
+            <th scope="col">Email</th> 
+            <th scope="col">Password</th> 
+            <th scope="col">Action</th> 
+
+
+
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for sh in show %} 
+          <tr>
+            <th scope ="row"> {{sh.id}}</th>
+              <td> {{sh.name}}</td>
+              <td> {{sh.email}}</td>
+              <td> {{sh.password}}</td>
+              <td> 
+                <form action="{% url 'updatedata' sh.id %}  " method="post"> {% csrf_token %}
+                  <input type="submit" value="update">
+                <!-- <a href="{% url 'updatedata'  sh.id %} ">Edit</a> -->
+                <form action="{% url 'deletedata' sh.id %}  " method="post"> {% csrf_token %}
+                  <input type="submit" value="Delete">
+                </form>
+              </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+       </table>
+      {% else %} 
+       <h4> No data</h4>
+
+      {%endif%}
+       
 </body>
 </html>
