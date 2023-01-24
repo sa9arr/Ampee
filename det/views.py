@@ -7,6 +7,7 @@ def ShowDetails(request):
      fm=EmpReg(request.POST)
      if fm.is_valid():
         fm.save()
+        fm=EmpReg()
     else:
         fm = EmpReg() 
     sh = User.objects.all() 
@@ -42,6 +43,8 @@ def update_data(request, id):
         fm = EmpReg(request.POST, instance=pi)
         if fm.is_valid():
             fm.save()
+            
+            return HttpResponseRedirect('/a')
     else:
         pi=User.objects.get(pk=id)
         fm= EmpReg(instance=pi)

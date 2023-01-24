@@ -5,7 +5,4 @@ class EmpReg(forms.ModelForm):
     class Meta:
         model=User
         fields=['name','email','password']
-        # labels={'name':'Enter name'}
-        # error_messages={'name':{'required':'name ta lekhnai parxa'}}
-       
-
+        
