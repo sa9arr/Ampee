@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{ % static '/det/ok.css' % } ">
+    <link rel="stylesheet" href="{% static '/ok.css' %}">
     <title>Document</title>
 </head>
 <body>
     <h1>This template works</h1>
    
-     <form action="" method="POST">
+     <form action="" method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
        {{form.as_p}}
         <input type="submit" value="submit">
@@ -21,39 +21,30 @@
       <h2> show employees Information</h2>
       {% if show%}
        <h4> table data</h4>
-       <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">ID</th> 
-            <th scope="col">Name</th> 
-            <th scope="col">Email</th> 
-            <th scope="col">Password</th> 
-            <th scope="col">Action</th> 
-
-
-
-
-          </tr>
-        </thead>
-        <tbody>
+       
+        <div class='profilebox'>
           {% for sh in show %} 
-          <tr>
-            <th scope ="row"> {{sh.id}}</th>
-              <td> {{sh.name}}</td>
-              <td> {{sh.email}}</td>
-              <td> {{sh.password}}</td>
-              <td> 
-                <form action="{% url 'updatedata' sh.id %}  " method="post"> {% csrf_token %}
-                  <input type="submit" value="update"> </form>
-                <!-- <a href="{% url 'updatedata'  sh.id %} ">Edit</a> -->
-                <form action="{% url 'deletedata' sh.id %}  " method="post"> {% csrf_token %}
-                  <input type="submit" value="Delete">
-                </form>
-              </td>
-          </tr>
+         <div class='profileeach'>
+          <div><img style='width:10rem;' src="/media/{{sh.photo}}"></div>
+
+                <div>{{sh.name}}</div>
+                <div>{{sh.email}}</div>
+                <div style='display:flex;justify-content:space-around'>
+                  <form action="{% url 'updatedata' sh.id %}  " method="post"> {% csrf_token %}
+                    <input type="submit" value="update"> </form>
+                  <!-- <a href="{% url 'updatedata'  sh.id %} ">Edit</a> -->
+                  <form action="{% url 'deletedata' sh.id %}  " method="post"> {% csrf_token %}
+                    <input type="submit" value="Delete">
+                  </form>
+                </div>
+                
+              
+          
+
+         </div>
+
           {% endfor %}
-        </tbody>
-       </table>
+        </div>
       {% else %} 
        <h4> No data</h4>
 
