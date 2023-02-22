@@ -6,34 +6,64 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/ok.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static '/reg.css' %}">
     <title>Document</title>
+    
 </head>
 <body>
-    <h1>This template works</h1>
+  
+  <div class="bg-[#FFFFF0]"> 
+    <h3 class="mt-4 mb-4 flex justify-center text-purple-900">Manage Employee records like never before!</h3>
+    
+    
+    <div class="inline-block ml-[40rem] px-4 py-2 bg-purple-200 rounded-lg"> 
+      {% if messages %}
+                <ul class="text-red font-normal ml-2 ">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+    </div>
+  </div>
+  
+    <div class="flex items-center justify-center">
+   <div class="w-[25rem] h-[25rem] bg-[#FFF5EE] border-2 flex items-center justify-around">
+    <form class="" action="" method="POST" enctype='multipart/form-data'>
+       {% csrf_token %}
+       
+        <h3 class="text-purple-900"> Add New Employee Record </h3>
+    <input class="mt-3 border-2 border-slate-500 rounded " type="text" name="emname" placeholder="Enter the name of Employee">
+     <input class="mt-3 border-2 rounded border-slate-500" type="email" name="ememail" placeholder="Enter the email of Employee">
+      <input class="mt-3 border-2 rounded border-slate-500"  type="text" name="designation" placeholder="Designation">
+      <input class="mt-3 border-2 rounded border-slate-500"  type="file" name="photo" placeholder="Upload ">
+       
+    
+       <input class=" ml-6 mt-4 bg-green-400 w-[6rem] h-[3rem] rounded-xl font-normal text-white-700 text-xl hover:bg-green-500 " type="submit" value="Submit">
+      </div>
+     </form>
+    </div>
+    
    
-     <form action="" method="POST" enctype='multipart/form-data'>
-        {% csrf_token %}
-       {{form.as_p}}
-        <input type="submit" value="submit">
-      </form>
-      <br> <br>
-      <h2> show employees Information</h2>
+    
+      
       {% if show%}
-       <h4> table data</h4>
+      
        
         <div class='profilebox'>
           {% for sh in show %} 
          <div class='profileeach'>
-          <div><img style='width:10rem;' src="/media/{{sh.photo}}"></div>
+          <div><img class="flex justify-center w-30" src="/media/{{sh.photo}}"></div>
 
-                <div>{{sh.name}}</div>
-                <div>{{sh.email}}</div>
-                <div style='display:flex;justify-content:space-around'>
+                <div>{{sh.emname}}</div>
+                <div>{{sh.ememail}}</div>
+                <div>{{sh.designation}}</div>
+                <div class="flex justify-content space-around">
                   <form action="{% url 'updatedata' sh.id %}  " method="post"> {% csrf_token %}
-                    <input type="submit" value="update"> </form>
+                    <input class=" mb-4 ml-2 w-[4rem] h-[2rem] bg-green-400 text-purple-900 rounded-xl hover:bg-green-500" type="submit" value="Update"> </form>
                   <!-- <a href="{% url 'updatedata'  sh.id %} ">Edit</a> -->
-                  <form action="{% url 'deletedata' sh.id %}  " method="post"> {% csrf_token %}
+                  <form  class="ml-[11rem] w-[4rem] h-[2rem] py-1 bg-[#EE4B2B] text-white rounded-xl hover:bg-red-700" action="{% url 'deletedata' sh.id %}  " method="post"> {% csrf_token %}
                     <input type="submit" value="Delete">
                   </form>
                 </div>
@@ -49,6 +79,6 @@
        <h4> No data</h4>
 
       {%endif%}
-       
+</div>     
 </body>
 </html>

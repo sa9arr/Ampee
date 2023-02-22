@@ -5,5 +5,5 @@ class EmpReg(forms.ModelForm):
     
     class Meta:
         model=User
-        fields=['name','email','designation','photo']
+        fields=['emname','ememail','designation','photo']
         

@@ -1,19 +1,25 @@
 from django.shortcuts import render,HttpResponseRedirect
 from .forms import EmpReg
 from .models import User
+from django.contrib import messages
 # from django.http import HttpResponse
+def home(request):
+    return render(request, 'home.html')
 def ShowDetails(request):
     if request.method == 'POST':
      fm=EmpReg(request.POST,request.FILES)
      print(fm)
 
      if fm.is_valid():
-        name=fm.cleaned_data.get('name')
+        emname=fm.cleaned_data.get('emname')
         designation=fm.cleaned_data.get('designation')
-        email=fm.cleaned_data.get('email')
+        ememail=fm.cleaned_data.get('ememail')
         photo=fm.cleaned_data.get('photo')
-        obj=User.objects.create(name=name,designation=designation,photo=photo,email=email)
+        obj=User.objects.create(emname=emname,designation=designation,photo=photo,ememail=ememail)
         obj.save()
+        success= "New Employee Record Successfully created"
+        messages.add_message(request, messages.SUCCESS, success)
+
     else:
         fm = EmpReg() 
     sh = User.objects.all() 
@@ -23,7 +29,6 @@ def ShowDetails(request):
 
     }   
     return render (request, 'reg.html', context )      
-
 #     # fm=EmpReg()
 #     # return render(request,'/home/sagar/Bulb/Pen/P/det/templates/reg.html',{'form':fm})
 #     # 
@@ -43,16 +48,19 @@ def ShowDetails(request):
 
 # # Create your views here.
 
-def update_data(request, id):
+def update_data(request, id,):
     if request.method == 'POST':
-        pi = User.objects.get(pk=id)
+        pi = User.objects.get(pk=id,)
         fm = EmpReg(request.POST, instance=pi)
         if fm.is_valid():
             fm.save()
+            success=f"record successfully updated"
+            messages.add_message(request, messages.SUCCESS, success)
+
             
             return HttpResponseRedirect('/a')
     else:
-        pi=User.objects.get(pk=id)
+        pi=User.objects.get(pk=id,)
         fm= EmpReg(instance=pi)
     return render(request, 'update.html', {'form':fm})          
 
@@ -60,6 +68,8 @@ def delete_data(request, id):
     if request.method== 'POST':
         pi = User.objects.get(pk=id)
         pi.delete()
+        success= "Employee Record deleted"
+        messages.add_message(request, messages.SUCCESS, success)
         return HttpResponseRedirect('/a')
 
 
