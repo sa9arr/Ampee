@@ -14,10 +14,10 @@
 <body>
   
   <div class="bg-[#FFFFF0]"> 
-    <h3 class="mt-4 mb-4 flex justify-center text-purple-900">Manage Employee records like never before!</h3>
+    <h3 class="mt-4 mb-4 flex flex-row justify-around justify-center text-purple-900">Manage Employee records like never before!</h3>
     
     
-    <div class="inline-block ml-[40rem] px-4 py-2 bg-purple-200 rounded-lg"> 
+    <div class="inline-block ml-[40rem] px-4 py-2 bg-green-400 rounded-lg"> 
       {% if messages %}
                 <ul class="text-red font-normal ml-2 ">
                     {% for message in messages %}
@@ -28,12 +28,12 @@
     </div>
   </div>
   
-    <div class="flex items-center justify-center">
-   <div class="w-[25rem] h-[25rem] bg-[#FFF5EE] border-2 flex items-center justify-around">
+    <div class="flex flex-row items-center justify-around">
+   <div class="w-[36rem] h-[32rem] bg-[#FFF5EE] border-2 flex flex-col justify-center">
     <form class="" action="" method="POST" enctype='multipart/form-data'>
        {% csrf_token %}
        
-        <h3 class="text-purple-900"> Add New Employee Record </h3>
+        <h3 class="text-purple-900 flex items-center justify-center"> Add New Employee Record </h3>
     <input class="mt-3 border-2 border-slate-500 rounded " type="text" name="emname" placeholder="Enter the name of Employee">
      <input class="mt-3 border-2 rounded border-slate-500" type="email" name="ememail" placeholder="Enter the email of Employee">
       <input class="mt-3 border-2 rounded border-slate-500"  type="text" name="designation" placeholder="Designation">
@@ -41,8 +41,9 @@
        
     
        <input class=" ml-6 mt-4 bg-green-400 w-[6rem] h-[3rem] rounded-xl font-normal text-white-700 text-xl hover:bg-green-500 " type="submit" value="Submit">
-      </div>
+      
      </form>
+    </div>
     </div>
     
    
@@ -50,10 +51,13 @@
       
       {% if show%}
       
-       
-        <div class='profilebox'>
+       <div class="flex justify-center">
+        <h3 class=" mt-[9rem] text-purple-900">Displaying the employees record</h3>
+       </div>
+        <div class=" flex flex-row flex-wrap gap-2 mt-[2rem] bg-[#FFF5EE]">
+         
           {% for sh in show %} 
-         <div class='profileeach'>
+         <div class="flex flex-col shadow-xl align-center text-center w-[20rem] justify-center items-center ">
           <div><img class="flex justify-center w-30" src="/media/{{sh.photo}}"></div>
 
                 <div>{{sh.emname}}</div>

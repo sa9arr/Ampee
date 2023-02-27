@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+      
+    
+</head>
+<body>
+ 
+    
+    
+        <div class="flex flex-row w-screen h-screen justify-around " >
+            
+            <div class="w-full bg-gray-600 flex justify-center items-center">
+              
+
+             <div class=" w-[30rem] h-[30rem] rounded-xl bg-slate-400 shadow-lg shadow-slate-500 ">
+              <div id="error" class="ml-[14rem]">
+                {% if messages %}
+                <ul class="text-red font-semibold">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                </div>
+              <div class="ml-[8rem] mt-16 mb-6 text-xl font-bold">
+                Please login to continue
+              </div>
+              
+                <form action="" method="post" autocomplete="off" class="p-6 flex flex-col gap-3">
+                    {% csrf_token %}
+                    <div class="relative">  
+                      
+                      <svg class="absolute w-9 h-8 top-3 left-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      
+                        <input name="username" autocomplete="off" type="text" class="w-[20rem] ml-16 placeholder-gray-400 placeholder-flex items-center rounded-2xl text-slate-600 p-4" placeholder="Enter Your Username">
+                        
+                      
+                    </div>
+                    <div class="relative">
+                      <svg class="absolute w-9 h-8 top-7 left-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                      </svg>
+                      
+                        <input type="password" autocomplete="off" name="password" class="mt-4 w-[20rem] ml-16 placeholder-gray-400 rounded-2xl text-slate-600 p-4" placeholder="Enter Your Password">
+                    </div>
+                
+                    <div>
+                      <a href="#" class=" ml-[16rem]">Forgot Password?</a>
+                    </div>
+
+                    <div>
+                        <input type="submit" class=" mt-4 bg-gray-900 rounded-2xl text-white ml-[11rem]  px-6 py-3 hover:bg-gray-700" value="Login">
+                    </div>
+                  </form>
+                    <div>
+                      <p class="text-slate-900 mt-4 ml-[8rem]"> New to Empee? <a href="{% url 'signup' %}" class="ml-2 hover:text-slate-800 hover:underline"> Register Here </a> </p>
+                    </div>
+                    
+
+                
+
+               
+             </div>
+            </div>
+
+         </div>
+            
+        
+    
+</body>
+</html>

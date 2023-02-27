@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% comment %} <link rel="stylesheet" href="./output.css"/> {% endcomment %}
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+</head>
+<body>
+    <div class="flex flex-row h-screen w-screen">
+        <div class="flex w-full bg-gray-600 justify-center items-center">
+        <div class="w-[30rem] h-[36rem] bg-slate-400 rounded-xl shadow-lg">
+            <div>
+              
+                {% for message in messages %}
+                <h5>{{message}}</h5>
+                {% endfor %}
+            </div>
+            <div class="mt-10 mb-2 text-2xl font-medium flex justify-center "> Signup to Empee</div>
+            <div class="flex row"> 
+              
+
+            <form action="" method="POST" autocomplete="off">
+                 {% csrf_token %} 
+                
+                <input type="text" name="fname" class=" w-[10rem] h-[3rem] mt-6 rounded-xl ml-12 p-4" placeholder="First Name">
+                <input type="text" name="lname" class="w-[10rem] h-[3rem] mt-6 rounded-xl ml-12 p-4" placeholder="Last Name">
+            </div>
+
+                <div>
+                <input type="email" name="email" class="w-[23rem] h-[3rem] mt-6 rounded-xl ml-12 p-4" placeholder="Email">
+                <input type="text" name="username" class="w-[23rem] h-[3rem] mt-6  rounded-xl ml-12 p-4" placeholder="Username">
+                <input type="password" name="password" class="w-[23rem] h-[3rem] mt-6  rounded-xl ml-12 p-4" placeholder="Password">
+                <input type="password" name="password2" class="w-[23rem] h-[3rem] mt-6  rounded-xl ml-12 p-4" placeholder="Confirm Password">
+
+                 </div>
+             
+            <div>
+                <button type="submit" class="w-[8rem] h-[3rem] ml-[10rem] bg-gray-900 rounded-2xl mt-6 text-white hover:bg-slate-800">Sign Up</button>
+
+            </div>
+        </form>
+        <div class=" ">
+            <p class="mt-4 ml-[8rem]"> Already have an account?   <a class="hover:underline hover:text-slate-800" href="{% url 'signin' %}"> Signin </a> </p>
+
+        </div>
+    
+
+              
+
+            </div>
+
+        </div>
+
+        </div>
+
+    </div>
+    
+</body>
+</html>
