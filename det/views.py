@@ -17,7 +17,7 @@ def home(request):
         obj.save()
         success= "New Employee Record Successfully created"
         messages.add_message(request, messages.SUCCESS, success)
-     return HttpResponseRedirect('/a/details')
+     return HttpResponseRedirect('/details')
 
  else:
     fm = EmpReg() 
@@ -83,7 +83,7 @@ def update_data(request, id,):
             messages.add_message(request, messages.SUCCESS, success)
 
             
-            return HttpResponseRedirect('/a/details')
+            return HttpResponseRedirect('/details')
     else:
         pi=User.objects.get(pk=id,)
         fm= EmpReg(instance=pi)
@@ -95,6 +95,6 @@ def delete_data(request, id):
         pi.delete()
         success= "Employee Record deleted"
         messages.add_message(request, messages.SUCCESS, success)
-        return HttpResponseRedirect('/a/details')
+        return HttpResponseRedirect('/details')
 
 
