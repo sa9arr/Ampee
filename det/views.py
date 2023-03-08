@@ -4,11 +4,36 @@ from .models import User
 from django.contrib import messages
 # from django.http import HttpResponse
 def home(request):
-    return render(request, 'home.html')
+ if request.method == 'POST':
+     fm=EmpReg(request.POST,request.FILES)
+     
+
+     if fm.is_valid():
+        emname=fm.cleaned_data.get('emname')
+        designation=fm.cleaned_data.get('designation')
+        ememail=fm.cleaned_data.get('ememail')
+        photo=fm.cleaned_data.get('photo')
+        obj=User.objects.create(emname=emname,designation=designation,photo=photo,ememail=ememail)
+        obj.save()
+        success= "New Employee Record Successfully created"
+        messages.add_message(request, messages.SUCCESS, success)
+     return HttpResponseRedirect('/a/details')
+
+ else:
+    fm = EmpReg() 
+    sh = User.objects.all() 
+    context = {
+    'form': fm,
+    'show': sh
+
+    }   
+    return render (request, 'reg.html', context )  
+ 
+ 
 def ShowDetails(request):
     if request.method == 'POST':
      fm=EmpReg(request.POST,request.FILES)
-     print(fm)
+     
 
      if fm.is_valid():
         emname=fm.cleaned_data.get('emname')
@@ -28,7 +53,7 @@ def ShowDetails(request):
     'show': sh
 
     }   
-    return render (request, 'reg.html', context )      
+    return render (request, 'details.html', context )      
 #     # fm=EmpReg()
 #     # return render(request,'/home/sagar/Bulb/Pen/P/det/templates/reg.html',{'form':fm})
 #     # 
@@ -58,7 +83,7 @@ def update_data(request, id,):
             messages.add_message(request, messages.SUCCESS, success)
 
             
-            return HttpResponseRedirect('/a')
+            return HttpResponseRedirect('/a/details')
     else:
         pi=User.objects.get(pk=id,)
         fm= EmpReg(instance=pi)
@@ -70,6 +95,6 @@ def delete_data(request, id):
         pi.delete()
         success= "Employee Record deleted"
         messages.add_message(request, messages.SUCCESS, success)
-        return HttpResponseRedirect('/a')
+        return HttpResponseRedirect('/a/details')
 
 
