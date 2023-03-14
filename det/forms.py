@@ -1,9 +1,9 @@
-from .models import User
+from .models import Employee
 from django import forms
 from django.core import validators
 class EmpReg(forms.ModelForm):
     
     class Meta:
-        model=User
-        fields=['emname','ememail','designation','photo']
+        model=Employee
+        fields=['emname','ememail','salary','designation','photo']
         

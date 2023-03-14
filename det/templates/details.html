@@ -35,7 +35,10 @@
 
          <div>{{sh.emname}}</div>
          <div>{{sh.ememail}}</div>
+         <div>{{sh.salary}}</div>
          <div>{{sh.designation}}</div>
+         
+
          <div class="flex justify-content space-around">
            <form action="{% url 'updatedata' sh.id %}  " method="post"> {% csrf_token %}
              <input class=" mb-4 ml-2 w-[4rem] h-[2rem] bg-green-400 text-purple-900 rounded-xl hover:bg-green-500" type="submit" value="Update"> </form>
