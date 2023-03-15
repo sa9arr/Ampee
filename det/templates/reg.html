@@ -12,6 +12,12 @@
     
 </head>
 <body>
+  <div class="w-[8rem] h-[2.5rem] bg-[#FFFFF0] fixed right-0 border-4 rounded-xl mb-2  ml-[15rem]"> {% if user.is_authenticated %}
+    Howdy, {{ user.username }}!
+{% else %}
+    <a href="{% url 'login' %}">Log in</a>
+{% endif %}
+  </div>
   
   <div class="bg-[#FFFFF0]"> 
     <h3 class="mt-4 mb-4 flex flex-row justify-around justify-center text-purple-900">Manage Employee records like never before!</h3>
