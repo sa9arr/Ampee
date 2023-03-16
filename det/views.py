@@ -74,20 +74,21 @@ def home(request):
         emname=fm.cleaned_data.get('emname')
         designation=fm.cleaned_data.get('designation')
         ememail=fm.cleaned_data.get('ememail')
-        photo=fm.cleaned_data.get('photo')
-        salary=fm.cleaned_data.get('salary')
-
-        obj=Employee.objects.create(emname=emname,salary=salary,designation=designation,photo=photo,ememail=ememail)
-        obj.save()
-        # with connection.cursor() as cursor:
-        #             cursor.execute("INSERT INTO  det_employee(emname,designation,ememail,photo,salary) VALUES(%s,%s,%s,%s,%s)",(emname,designation,ememail,photo,salary))
+        salary=fm.cleaned_data.get('salary')      
+        # obj=Employee.objects.create(emname=emname,salary=salary,designation=designation,photo=photo,ememail=ememail)
+        # obj.save()
+        with connection.cursor() as cursor:
+                    cursor.execute("INSERT INTO  det_employee(emname,designation,ememail,salary) VALUES(%s,%s,%s,%s)",(emname,designation,ememail,salary))
         success= "New Employee Record Successfully created"
+        
         messages.add_message(request, messages.SUCCESS, success)
      return HttpResponseRedirect('/details')
 
  else:
     fm = EmpReg() 
-    sh = Employee.objects.all() 
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM det_employee")
+        sh=dictfetchall(cursor)
     context = {
     'form': fm,
     'show': sh
@@ -106,7 +107,8 @@ def ShowDetails(request):
         ememail=fm.cleaned_data.get('ememail')
         photo=fm.cleaned_data.get('photo')
         obj=Employee.objects.create(emname=emname,designation=designation, salary=salary, photo=photo,ememail=ememail)
-        obj.save()
+        with connection.cursor() as cursor:
+                    cursor.execute("INSERT INTO  det_employee(emname,designation,ememail,photo,salary) VALUES(%s,%s,%s,%s,%s)",(emname,designation,ememail,obj.photo,salary))
         success= "New Employee Record Successfully created"
         messages.add_message(request, messages.SUCCESS, success)
 
@@ -146,7 +148,8 @@ def update_data(request, id,):
         pi = Employee.objects.get(pk=id,)
         fm = EmpReg(request.POST, instance=pi)
         if fm.is_valid():
-            fm.save()
+            with connection.cursor() as cursor:
+                cursor.execute("UPDATE det_employee SET emname=%s,designation=%s,ememail=%s,photo=%s",[fm.emname,fm.designation,fm.ememail,fm.photo])
             success=f"record successfully updated"
             messages.add_message(request, messages.SUCCESS, success)
 
@@ -159,10 +162,10 @@ def update_data(request, id,):
 
 def delete_data(request, id):
     if request.method== 'POST':
-        pi = Employee.objects.get(pk=id)
-        pi.delete()
+        # pi = Employee.objects.get(pk=id)
+        # pi.delete()
+        with connection.cursor() as cursor:
+                    cursor.execute("DELETE FROM det_employee WHERE id=%s",[id])
         success= "Employee Record deleted"
         messages.add_message(request, messages.SUCCESS, success)
         return HttpResponseRedirect('/details')
-
-

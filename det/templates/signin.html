@@ -24,7 +24,7 @@
              <div class=" w-[30rem] h-[30rem] rounded-xl bg-slate-400 shadow-lg shadow-slate-500 ">
               <div id="error" class="ml-[14rem]">
                 {% if messages %}
-                <ul class="text-red font-semibold">
+                <ul class="text-red-700 font-medium">
                     {% for message in messages %}
                     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}

@@ -18,6 +18,13 @@
     <a href="{% url 'login' %}">Log in</a>
 {% endif %}
   </div>
+  <div class="mt-9 fixed right-3">{% if user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="POST">
+      {% csrf_token %}
+      <button class="text-blue-500" type="submit"> Logout </button>
+    </form>
+  {% endif %}
+  </div>
   
   <div class="bg-[#FFFFF0]"> 
     <h3 class="mt-4 mb-4 flex flex-row justify-around justify-center text-purple-900">Manage Employee records like never before!</h3>
